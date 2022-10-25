@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import {useNavigate} from 'react-router-dom'
 
 import * as CarServer from "./CarServer.jsx";
 
@@ -6,15 +7,23 @@ import * as CarServer from "./CarServer.jsx";
 
 const CarList = () => {
 
+    const navigate = useNavigate()
+
+
+
+    // useState para manejar el estado del comonente(hook)
+
+    const [cars, setCars] = useState([])
+
 
     const listarCars = async () => {
         const resp = await CarServer.CarList()
         const data = await resp.json()
-        
+        setCars(data)
     }
-    
-    
-    useEffect(() =>{
+
+
+    useEffect(() => {
         listarCars()
         // eslint-disable-next-line
     }, [])
@@ -23,13 +32,13 @@ const CarList = () => {
     setTimeout(() => {
         listarCars()
     }, 5000)
-    
-    
+
+
     return (
-    
+
         <div className="card">
             <div className="card-header">
-                <button className="btn btn-success">Agregar Carro</button>
+                <button className="btn btn-success" onClick={() =>navigate('/crear')}>Agregar Carro</button>
             </div>
             <div className="card-body">
                 <h4>Lista de empleados</h4>
@@ -47,30 +56,39 @@ const CarList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Darwin</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                            <td>
-                                <button type="button" className="btn btn-warning"
-    
-                                    style={{ marginRight: "5px" }}
-                                >Editar</button>
-                                <button type="button" className="btn btn-danger">
-                                    Borrar</button>
-                            </td>
-                        </tr>
-    
-    
+                        {/* ingresar datos */}
+                        {cars ? cars.map((car) => (
+                            <tr key={car.id}>
+                                <td>{car.id}</td>
+                                <td>{car.nombre}</td>
+                                <td>{car.modelo}</td>
+                                <td>{car.marca}</td>
+                                <td>{car.pais}</td>
+                                <td>{car.fechaCreate}</td>
+                                <td>{car.fechaUpdate}</td>
+
+                                <td>
+                                    <button type="button" className="btn btn-warning"
+                                    // onClick={() => navigate()}
+
+                                        style={{ marginRight: "5px" }}
+                                    >Editar</button>
+                                    <button type="button" className="btn btn-danger">
+                                        Borrar</button>
+                                </td>
+                            </tr>
+                        )) : (
+
+                            null)}
+
+
+
+
                     </tbody>
                 </table>
             </div>
             <div className="card-footer text-muted">
-    
+
             </div>
         </div>
     );
