@@ -1,7 +1,16 @@
+
+
 import React, { useEffect, useState } from "react";
 import {useNavigate} from 'react-router-dom'
-
 import * as CarServer from "./CarServer.jsx";
+import * as Alerts from "./Alerts.jsx";
+
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
 
 
 
@@ -20,24 +29,50 @@ const CarList = () => {
         try{
             const resp = await CarServer.CarList()
             const data = await resp.json()
+        
             setCars(data)
+           
+           
         }catch(error){
-            console.log(error)
+            // Alerts.carError()
+            console.error(error)
         }
         
     }
 
     const deleteCar = async (idCar) => {
         try{
-            const resp = await CarServer.deleteCar(idCar)
-            const data = await resp.json()
-            if(data.success){
-                console.log(data)
-                listarCars()
+            MySwal.fire({
+                title: '¿Estás seguro de eliminar?',
+                text: "No podrá recuperar está información!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Eliminarlo!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    detected(idCar)
+                    // se pasa a eliminar
+                }
+              })
+            const detected  = async (idCar) =>{
+                const resp = await CarServer.deleteCar(idCar)
+                const data = await resp.json()
+                if(data.success){
+                    MySwal.fire(
+                        'Eliminado!',
+                        'Ha sido eliminado.',
+                        'success'
+                      )
+                    listarCars()
+                }
+                navigate('/')
             }
-            navigate('/')
-        }catch(error){
-            console.log(error)
+
+           
+        }catch(e){
+            Alerts.carError()
         }
         
         
@@ -49,14 +84,14 @@ const CarList = () => {
     useEffect(() => {
         listarCars()
         // eslint-disable-next-line
-    }, [])
+    })
 
-    // consultar datos cada 5 segundos
+    // //consultar datos cada 5 segundos
     // setTimeout(() => {
     //     listarCars()
     // }, 5000)
 
-
+    var c = 1
     return (
 
         <div className="card">
@@ -64,10 +99,11 @@ const CarList = () => {
                 <button className="btn btn-success" onClick={() =>navigate('/crear')}>Agregar Carro</button>
             </div>
             <div className="card-body">
-                <h4>Lista de empleados</h4>
-                <table className="table">
+                <h4>Lista de Carros</h4>
+                <table className="table table-responsive -sm">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Modelo</th>
@@ -80,15 +116,22 @@ const CarList = () => {
                     </thead>
                     <tbody>
                         {/* ingresar datos */}
-                        {cars ? cars.map((car) => (
+                        {(!cars.error) ? cars.map((car) => (
                             <tr key={car.id}>
+                                <td>{c++}</td>
                                 <td>{car.id}</td>
                                 <td>{car.nombre}</td>
                                 <td>{car.modelo}</td>
                                 <td>{car.marca}</td>
                                 <td>{car.pais}</td>
                                 <td>{car.fechaCreate}</td>
-                                <td>{car.fechaUpdate}</td>
+                                {car.fechaUpdate ? (
+                                    <td>{car.fechaUpdate}</td>
+                                ):(
+                                    <td>No se a editado</td>
+                                )
+                                }
+                               
 
                                 <td>
                                     <button type="button" className="btn btn-warning"
@@ -101,8 +144,9 @@ const CarList = () => {
                                 </td>
                             </tr>
                         )) : (
-
-                            null)}
+                            <tr key={cars}><td colSpan="10">No hay datos</td></tr>
+                            
+                            )}
 
 
 
@@ -113,6 +157,7 @@ const CarList = () => {
             <div className="card-footer text-muted">
 
             </div>
+            
         </div>
     );
 

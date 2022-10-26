@@ -5,6 +5,7 @@ import {useNavigate, useParams, Link} from 'react-router-dom'
 // components
 import * as CarServer from "./CarServer.jsx";
 import countries from "./countries.json"
+import * as Alerts from "./Alerts.jsx";
 
 const CarEdit = () => {
 
@@ -31,10 +32,11 @@ const CarEdit = () => {
             
             if(data.success){
                 e.target.reset()
-                navigate('/')
+                Alerts.saved()
             }
+            navigate('/')
         }catch(error){
-            console.log(error)
+            Alerts.carError()
         }
     }
 
@@ -42,12 +44,12 @@ const CarEdit = () => {
         try{
             const resp = await CarServer.getCarById(idCar)
             const car = await resp.json()
-            console.log(car)
+            
             const {id, nombre, marca, modelo, pais} = car
             // aqui hace que se ingresen los datos en los inputs
             setCar({id, nombre, marca, modelo, pais})
         }catch(error){
-            console.log(error)
+            Alerts.noData()
         }
 
        
@@ -79,7 +81,9 @@ const CarEdit = () => {
                       className={"form-control"}
                       onChange={handleInputChange}
                       value={car.nombre}
-                      placeholder="" 
+                      placeholder="Nombre" 
+                      required={true}
+                      maxLength="100"
                       aria-describedby="helpId"/>
                       <small id="helpId" className="invalid-feedback">Escribe aqui el nombre del carro</small>
                     </div>
@@ -89,7 +93,9 @@ const CarEdit = () => {
                       className={"form-control"} 
                       onChange={handleInputChange}
                       value={car.modelo}
-                      placeholder="" aria-describedby="helpId"/>
+                      required={true}
+                      maxLength="100"
+                      placeholder="Modelo" aria-describedby="helpId"/>
                       <small id="helpId" className="invalid-feedback">Escribe aqui el correo del carro</small>
                     </div>
                     <div className="form-group">
@@ -98,13 +104,15 @@ const CarEdit = () => {
                       className={"form-control"} 
                       onChange={handleInputChange}
                       value={car.marca}
-                      placeholder="" 
+                      placeholder="Marca" 
+                      required={true}
+                      maxLength="100"
                       aria-describedby="helpId"/>
                       <small id="helpId" className="invalid-feedback">Escribe aqui el nombre del carro</small>
                     </div>
                     <div className="form-group">
                       <label htmlFor="">País</label>
-                      <select  name="pais" onChange={handleInputChange} className="form-select" aria-label="Default select example">
+                      <select  name="pais" required={true} onChange={handleInputChange} className="form-select" aria-label="Default select example">
                       <option value=''>Selecciona un país</option>                      
                       {countries.map((c) => (
                            <option  key={c.sName}  value={c.sName}>{c.sName}</option>
@@ -124,9 +132,7 @@ const CarEdit = () => {
                     </div>
                 </form>
             </div>
-            <div className="card-footer text-muted">
-                Footer
-            </div>
+            
         </div>
     )
 }

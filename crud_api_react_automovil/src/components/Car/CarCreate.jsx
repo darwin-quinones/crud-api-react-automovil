@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 // components
 import * as CarServer from "./CarServer.jsx";
+import * as Alerts from "./Alerts.jsx";
 import countries from "./countries.json"
 
 const CarCreate = () =>{
@@ -34,11 +35,13 @@ const CarCreate = () =>{
             
             if (data.success){
                 e.target.reset()
-                navigate('/')
+                Alerts.saved()
+                
             }
+            navigate('/')
 
         }catch(e){
-            console.log(e)
+            Alerts.createError()
         }
     }
 
@@ -82,40 +85,41 @@ const CarCreate = () =>{
                       <input type="text" name="nombre"  id="" 
                       className={"form-control"}
                       onChange={handleInputChange}
-                      placeholder="" 
-                      aria-describedby="helpId"/>
-                      <small id="helpId" className="invalid-feedback">Escribe aqui el nombre del carro</small>
+                      placeholder="Nombre" 
+                      required={true}
+                      maxLength="100"
+                    />
+                     
                     </div>
                     <div className="form-group">
                       <label htmlFor="">Modelo</label>
                       <input type="text" name="modelo" id=""  
                       className={"form-control"} 
                       onChange={handleInputChange}
-                      placeholder="" aria-describedby="helpId"/>
-                      <small id="helpId" className="invalid-feedback">Escribe aqui el correo del carro</small>
+                      required={true}
+                      maxLength="100"
+                     />
                     </div>
                     <div className="form-group">
                       <label htmlFor="">Marca</label>
                       <input type="text" name="marca"  id="" 
                       className={"form-control"} 
                       onChange={handleInputChange}
-                      placeholder="" 
-                      aria-describedby="helpId"/>
-                      <small id="helpId" className="invalid-feedback">Escribe aqui el nombre del carro</small>
+                      placeholder="Marca" 
+                      required={true}
+                      maxLength="100"
+                     />
                     </div>
                     <div className="form-group">
                       <label htmlFor="">País</label>
-                      <select  name="pais" onChange={handleInputChange} className="form-select" aria-label="Default select example">
+                      <select  name="pais" required={true} onChange={handleInputChange} className="form-select" aria-label="Default select example">
                       <option value=''>Selecciona un país</option>                      
                       {countries.map((c) => (
                            <option  key={c.sName}  value={c.sName}>{c.sName}</option>
                       ))
                       }
                     </select>
-                      
-                        
                      
-                      <small id="helpId" className="invalid-feedback">Escribe aqui el nombre del carro</small>
                     </div>
                     <div className="btn mt-2" role="group" aria-label="">
 
@@ -125,9 +129,7 @@ const CarCreate = () =>{
                     </div>
                 </form>
             </div>
-            <div className="card-footer text-muted">
-                Footer
-            </div>
+            
         </div>
     )
 }
