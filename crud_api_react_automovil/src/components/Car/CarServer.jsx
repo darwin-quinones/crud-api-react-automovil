@@ -42,6 +42,23 @@ export const CountryList = async () =>{
 }
 
 
+
+export const createCar = async (car) =>{
+    return await fetch(API_URL_AUTOMOVILES+"?insertar=1", {
+        method: 'POST',
+        // headers:{
+        //     'Content-Type': 'application/json'
+        // },
+        body: JSON.stringify({
+
+            "nombre": String(car.nombre).trim(),
+            "marca": String(car.marca).trim(),
+            "modelo": String(car.modelo).trim(),
+            "pais": String(car.pais).trim(),
+        })
+    })
+}
+
 // export default  CarList
 
 

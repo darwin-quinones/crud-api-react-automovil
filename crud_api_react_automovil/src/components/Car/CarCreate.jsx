@@ -7,7 +7,7 @@ import * as CarServer from "./CarServer.jsx";
 import countries from "./countries.json"
 
 const CarCreate = () =>{
-    // const API_URL_COUNTRIES =  'http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByCode/JSON/debug'
+    
 
     const initialState = {id:0, nombre:"", marca:"", modelo:"", pais:"", }
 
@@ -22,13 +22,38 @@ const CarCreate = () =>{
         setCar({...car, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = async (e) =>{
         e.preventDefault();
-        console.log(car)
+        // console.log(car)
+
+        let resp ;
+        try{
+            resp = await CarServer.createCar(car)
+            const data = await resp.json()
+            console.log(data)
+
+        }catch(e){
+            console.log(e)
+        }
     }
 
-    const getCountries = async () =>{
-        
+    const getCountries =  () =>{
+        // const API_URL_COUNTRIES =  'http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByCode/JSON/debug'
+        // const r = fetch(API_URL_COUNTRIES,  {
+        //     method: 'GET',
+        //     // mode: 'no-cors',
+        //     // headers: {
+              
+        //     // },
+        // })
+        // .then((res)=>{
+            
+        //     return res.json();      
+        // })
+        // .then((data)=>{
+        //     console.log(data);          
+        // })
+        // console.log(r)       
     }
 
     // useeffect se ejecuta cuando el componente ha cargado
