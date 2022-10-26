@@ -1,5 +1,5 @@
 
-import {Link } from 'react-router-dom'
+import {Link , useNavigate} from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 
 // components
@@ -7,6 +7,7 @@ import * as CarServer from "./CarServer.jsx";
 import countries from "./countries.json"
 
 const CarCreate = () =>{
+    const navigate = useNavigate()
     
 
     const initialState = {id:0, nombre:"", marca:"", modelo:"", pais:"", }
@@ -30,7 +31,11 @@ const CarCreate = () =>{
         try{
             resp = await CarServer.createCar(car)
             const data = await resp.json()
-            console.log(data)
+            
+            if (data.success){
+                e.target.reset()
+                navigate('/')
+            }
 
         }catch(e){
             console.log(e)

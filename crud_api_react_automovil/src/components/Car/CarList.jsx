@@ -17,9 +17,32 @@ const CarList = () => {
 
 
     const listarCars = async () => {
-        const resp = await CarServer.CarList()
-        const data = await resp.json()
-        setCars(data)
+        try{
+            const resp = await CarServer.CarList()
+            const data = await resp.json()
+            setCars(data)
+        }catch(error){
+            console.log(error)
+        }
+        
+    }
+
+    const deleteCar = async (idCar) => {
+        try{
+            const resp = await CarServer.deleteCar(idCar)
+            const data = await resp.json()
+            if(data.success){
+                console.log(data)
+                listarCars()
+            }
+            navigate('/')
+        }catch(error){
+            console.log(error)
+        }
+        
+        
+
+
     }
 
 
@@ -29,9 +52,9 @@ const CarList = () => {
     }, [])
 
     // consultar datos cada 5 segundos
-    setTimeout(() => {
-        listarCars()
-    }, 5000)
+    // setTimeout(() => {
+    //     listarCars()
+    // }, 5000)
 
 
     return (
@@ -69,11 +92,11 @@ const CarList = () => {
 
                                 <td>
                                     <button type="button" className="btn btn-warning"
-                                    // onClick={() => navigate()}
+                                    onClick={() => navigate(`/editar/${car.id}`)}
 
                                         style={{ marginRight: "5px" }}
                                     >Editar</button>
-                                    <button type="button" className="btn btn-danger">
+                                    <button onClick={() =>deleteCar(car.id)}type="button" className="btn btn-danger">
                                         Borrar</button>
                                 </td>
                             </tr>

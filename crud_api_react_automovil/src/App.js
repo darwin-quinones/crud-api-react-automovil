@@ -5,6 +5,7 @@ import './App.css';
 
 import CarList from './components/Car/CarList.jsx'
 import CarCreate from './components/Car/CarCreate.jsx'
+import CarEdit from './components/Car/CarEdit.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<CarList></CarList>}></Route>
           <Route exact path='/crear' element={<CarCreate></CarCreate>}></Route>
+          <Route exact path='/editar/:id' element={<CarEdit></CarEdit>}></Route>
         </Routes>
       </Router>
      
