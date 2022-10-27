@@ -33,8 +33,8 @@ const CarList = () => {
            
            
         }catch(error){
-            // Alerts.carError()
-            console.error(error)
+           
+            Alerts.carError()
         }
         
     }
@@ -52,11 +52,11 @@ const CarList = () => {
                 confirmButtonText: '¡Si, Eliminarlo!'
               }).then((result) => {
                 if (result.isConfirmed) {
-                    detected(idCar)
+                    delected(idCar)
                     // se pasa a eliminar
                 }
               })
-            const detected  = async (idCar) =>{
+            const delected  = async (idCar) =>{
                 const resp = await CarServer.deleteCar(idCar)
                 const data = await resp.json()
                 if(data.success){
@@ -86,10 +86,7 @@ const CarList = () => {
         // eslint-disable-next-line
     },[])
 
-    // //consultar datos cada 5 segundos
-    // setTimeout(() => {
-    //     listarCars()
-    // }, 5000)
+ 
 
     var c = 1
     return (
@@ -146,10 +143,6 @@ const CarList = () => {
                             <tr key={cars}><td colSpan="10">No hay datos</td></tr>
                             
                             )}
-
-
-
-
                     </tbody>
                 </table>
             </div>

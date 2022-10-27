@@ -69,6 +69,7 @@ const CarCreate = () =>{
                       className={"form-control"} 
                       onChange={handleInputChange}
                       required={true}
+                      placeholder="Modelo" 
                       maxLength="100"
                      />
                     </div>
