@@ -55,10 +55,8 @@ const CarEdit = () => {
        
     }
 
-
     // obtener el parametro id 
     useEffect(() => {
-
         if (params.id) {
             getCarById(params.id)
         }

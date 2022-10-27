@@ -11,8 +11,7 @@ import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
-console.log('fetching')
-fetch('https://mocki.io/v1/29227111-789f-4c19-aa86-71481b70e230')
+
 
 const CarList = () => {
 
@@ -45,12 +44,12 @@ const CarList = () => {
         try{
             MySwal.fire({
                 title: '¿Estás seguro de eliminar?',
-                text: "No podrá recuperar está información!",
+                text: "¡No podrá recuperar está información!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Si, Eliminarlo!'
+                confirmButtonText: '¡Si, Eliminarlo!'
               }).then((result) => {
                 if (result.isConfirmed) {
                     detected(idCar)
@@ -62,7 +61,7 @@ const CarList = () => {
                 const data = await resp.json()
                 if(data.success){
                     MySwal.fire(
-                        'Eliminado!',
+                        '¡Eliminado!',
                         'Ha sido eliminado.',
                         'success'
                       )
@@ -85,7 +84,7 @@ const CarList = () => {
     useEffect(() => {
         listarCars()
         // eslint-disable-next-line
-    })
+    },[])
 
     // //consultar datos cada 5 segundos
     // setTimeout(() => {
@@ -128,7 +127,7 @@ const CarList = () => {
                                 {car.fechaUpdate ? (
                                     <td>{car.fechaUpdate}</td>
                                 ):(
-                                    <td>No se a editado</td>
+                                    <td>No se ha editado</td>
                                 )
                                 }
                                

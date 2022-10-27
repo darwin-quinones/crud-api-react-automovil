@@ -1,6 +1,4 @@
-const API_URL_AUTOMOVILES = 'http://localhost/crud_automovil/'
-const API_URL_COUNTRIES =  'https://mocki.io/v1/29227111-789f-4c19-aa86-71481b70e230'
-
+const API_URL_AUTOMOVILES = 'https://crud-automvil-php.000webhostapp.com/index.php'
 
 export const CarList = async () =>{
     var cars = await fetch(API_URL_AUTOMOVILES)
@@ -11,35 +9,6 @@ export const getCarById = async (idCar) =>{
     var car = await fetch(API_URL_AUTOMOVILES+"?consultar="+idCar)
     return car
 }
-
-
-export const CountryList = async () =>{
-
-    fetch(API_URL_COUNTRIES, {
-        
-        method: "GET",
-       
-        })
-        .then(function (response) {
-            if (!response.ok) {
-               return response.text().then(result => Promise.reject(new Error(result)));
-            }
-        
-            console.log(response.json()) 
-        })
-    
-    // var cars = await fetch(API_URL_COUNTRIES)
-    // return cars
-
-    // const response = await fetch(API_URL_COUNTRIES, {
-    //     'mode': 'no-cors',
-    //     'headers': {
-    //         'Access-Control-Allow-Origin': '*',
-    //     }
-    // });
-    // console.log(response)
-}
-
 
 
 export const createCar = async (car) =>{
@@ -75,9 +44,6 @@ export const deleteCar = async (idCar) =>{
         method: 'POST',
     })
 }
-
-
-// export default  CarList
 
 
 
