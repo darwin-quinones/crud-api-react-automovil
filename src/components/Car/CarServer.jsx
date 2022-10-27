@@ -1,5 +1,7 @@
-// const API_URL_AUTOMOVILES = 'https://crud-automvil-php.000webhostapp.com/index.php'
-const API_URL_AUTOMOVILES = 'http://localhost/crud_automovil/'
+const API_URL_AUTOMOVILES = 'https://crud-automvil-php.000webhostapp.com/index.php'
+// const API_URL_AUTOMOVILES = 'http://localhost/crud_automovil/'
+// const API_URL_AUTOMOVILES = 'http://localhost/crud_automovil/'
+const URL_COUNTRIES = 'https://mocki.io/v1/29227111-789f-4c19-aa86-71481b70e230'
 
 export const CarList = async () =>{
     var cars = await fetch(API_URL_AUTOMOVILES, {
