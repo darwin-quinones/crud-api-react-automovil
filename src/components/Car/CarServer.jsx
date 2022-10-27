@@ -1,7 +1,13 @@
 const API_URL_AUTOMOVILES = 'https://crud-automvil-php.000webhostapp.com/index.php'
 
 export const CarList = async () =>{
-    var cars = await fetch(API_URL_AUTOMOVILES)
+    var cars = await fetch(API_URL_AUTOMOVILES, {
+        method: 'GET',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            // 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json'
+        }
+    })
     return cars
 }
 
