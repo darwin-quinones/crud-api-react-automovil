@@ -11,8 +11,8 @@ import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
-
-
+console.log('fetching')
+fetch('https://mocki.io/v1/29227111-789f-4c19-aa86-71481b70e230')
 
 const CarList = () => {
 
@@ -39,6 +39,7 @@ const CarList = () => {
         }
         
     }
+    
 
     const deleteCar = async (idCar) => {
         try{
@@ -94,17 +95,17 @@ const CarList = () => {
     var c = 1
     return (
 
-        <div className="card">
-            <div className="card-header">
-                <button className="btn btn-success" onClick={() =>navigate('/crear')}>Agregar Carro</button>
+        <div className="card table table-responsive">
+            <div className="card-header table table-responsive" style={{backgroundColor:"#33527F", float:'right'}}>
+                <button className="btn btn-success ms-auto" onClick={() =>navigate('/crear')}>
+                    Agregar Carro</button>
             </div>
-            <div className="card-body">
+            <div className="card-body table table-responsive">
                 <h4>Lista de Carros</h4>
-                <table className="table table-responsive -sm">
+                <table className="table table-responsive table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>ID</th>
+                            <th>#</th>                          
                             <th>Nombre</th>
                             <th>Modelo</th>
                             <th>Marca</th>
@@ -118,8 +119,7 @@ const CarList = () => {
                         {/* ingresar datos */}
                         {(!cars.error) ? cars.map((car) => (
                             <tr key={car.id}>
-                                <td>{c++}</td>
-                                <td>{car.id}</td>
+                                <td>{c++}</td>                   
                                 <td>{car.nombre}</td>
                                 <td>{car.modelo}</td>
                                 <td>{car.marca}</td>

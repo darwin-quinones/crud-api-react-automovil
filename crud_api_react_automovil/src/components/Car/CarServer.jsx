@@ -1,5 +1,5 @@
 const API_URL_AUTOMOVILES = 'http://localhost/crud_automovil/'
-const API_URL_COUNTRIES =  'http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByCode/JSON/debug'
+const API_URL_COUNTRIES =  'https://mocki.io/v1/29227111-789f-4c19-aa86-71481b70e230'
 
 
 export const CarList = async () =>{
@@ -13,38 +13,32 @@ export const getCarById = async (idCar) =>{
 }
 
 
-// export const CountryList = async () =>{
+export const CountryList = async () =>{
 
-//     fetch(API_URL_COUNTRIES, {
-//         mode: 'no-cors',
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Access-Control-Allow-Origin": "*" ,
-//             "Access-Control-Allow-Headers": "access, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
-//             "Access-Control-Allow-Methods": "GET,POST"
-
-//         }, 
-//         })
-//         .then(function (response) {
-//             if (!response.ok) {
-//                return response.text().then(result => Promise.reject(new Error(result)));
-//             }
+    fetch(API_URL_COUNTRIES, {
         
-//             console.log(response.json()) 
-//         })
+        method: "GET",
+       
+        })
+        .then(function (response) {
+            if (!response.ok) {
+               return response.text().then(result => Promise.reject(new Error(result)));
+            }
+        
+            console.log(response.json()) 
+        })
     
-//     // var cars = await fetch(API_URL_COUNTRIES)
-//     // return cars
+    // var cars = await fetch(API_URL_COUNTRIES)
+    // return cars
 
-//     // const response = await fetch(API_URL_COUNTRIES, {
-//     //     'mode': 'no-cors',
-//     //     'headers': {
-//     //         'Access-Control-Allow-Origin': '*',
-//     //     }
-//     // });
-//     // console.log(response)
-// }
+    // const response = await fetch(API_URL_COUNTRIES, {
+    //     'mode': 'no-cors',
+    //     'headers': {
+    //         'Access-Control-Allow-Origin': '*',
+    //     }
+    // });
+    // console.log(response)
+}
 
 
 
